@@ -54,7 +54,7 @@ sudo apt install firefox-esr --reinstall
 sudo apt update && sudo apt full-upgrade -y
 ```
 
-Удаление неиспользуемых пакетов и ядер Kali Linux
+Удаление неиспользуемых пакетов и ядер
 ```bash
 sudo apt autoremove -y
 ```
@@ -88,19 +88,10 @@ tail -n 20 file2
 diff file1 file2
 ```
 
-Изменение фона экрана логина.блокировки
+Изменение фона экрана логина/блокировки в Kali Linx
 ```bash
 ln -s /usr/share/backgrounds/kali/kali-grub-16x9.png /usr/share/desktop-base/kali-theme/login/background
 или
 ln -s ../../../backgrounds/kali/kali-grub-16x9.png /usr/share/desktop-base/kali-theme/login/background
 ```
-
-
-
-
-
-
-
-
-
 
