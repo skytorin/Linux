@@ -88,7 +88,7 @@ tail -n 20 file2
 diff file1 file2
 ```
 
-Изменение фона экрана логина/блокировки в Kali Linx
+Изменение фона экрана логина/блокировки в Kali Linux
 ```bash
 ln -s /usr/share/backgrounds/kali/kali-grub-16x9.png /usr/share/desktop-base/kali-theme/login/background
 или
