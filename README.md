@@ -95,3 +95,19 @@ ln -s /usr/share/backgrounds/kali/kali-grub-16x9.png /usr/share/desktop-base/kal
 ln -s ../../../backgrounds/kali/kali-grub-16x9.png /usr/share/desktop-base/kali-theme/login/background
 ```
 
+Получение информации с DNS сервера по доменому имени
+```bash
+host -a examle.com
+host -v -t ANY examlle.com 
+host -t NS example.com
+host -t MX examle.com
+host -t A examle.com
+
+```
+
+
+
+
+
+
+
