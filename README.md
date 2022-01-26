@@ -117,7 +117,8 @@ sudo apt install certbot python3-certbot-nginx
 certbot certonly -d *.example.com --manual --preferred-challenges dns
 ```
 
-
-
-
+Вывод полных путей для всего содержимого каталога
+```bash
+ls -d "$PWD"/* 
+```
 
