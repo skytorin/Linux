@@ -102,10 +102,20 @@ host -v -t ANY examlle.com
 host -t NS example.com
 host -t MX examle.com
 host -t A examle.com
-
 ```
 
+## Сертификаты LetsEncrypt
+Установка certbot и модуля для nginx
+```bash
+sudo apt update
+sudo apt install nginx
+sudo apt install certbot python3-certbot-nginx
+```
 
+Создание wildcard сертификата с проверкой через TXT запись на сервере DNS
+```bash
+certbot certonly -d *.example.com --manual --preferred-challenges dns
+```
 
 
 
