@@ -69,7 +69,7 @@ sudo apt autoclean -y
 locate -i file
 ```
 
-Поиск файла в домашнем каиалоге
+Поиск файла в домашнем каталоге
 ```bash
 find ~/ file
 ```
@@ -95,7 +95,7 @@ ln -s /usr/share/backgrounds/kali/kali-grub-16x9.png /usr/share/desktop-base/kal
 ln -s ../../../backgrounds/kali/kali-grub-16x9.png /usr/share/desktop-base/kali-theme/login/background
 ```
 
-Получение информации с DNS сервера по доменому имени
+Получение информации с DNS сервера по доменному имени
 ```bash
 host -a examle.com
 host -v -t ANY examlle.com 
@@ -112,7 +112,7 @@ sudo apt install nginx
 sudo apt install certbot python3-certbot-nginx
 ```
 
-Создание wildcard сертификата с проверкой через TXT запись на сервере DNS
+Создание WildCard сертификата с проверкой через TXT запись на сервере DNS
 ```bash
 certbot certonly -d *.example.com --manual --preferred-challenges dns
 ```
