@@ -211,6 +211,50 @@ sed 's/Windows/Linux/g' test4_copy.log
 sed '3s/Windows/Linux/w file_copy.txt' file.txt
 ```
 
+## AWK
+Вывод интерпритаторов всех пользователей, указанных в файле /etc/passwd:
+```bash
+awk -F: '{print $7}' /etc/passwd
+```
+
+Вывод только тех строк в которых есть цифры:
+```bash
+awk '/[[:digit:]]/{print $0}' file.txt
+```
+
+Вывод заданной колонки :
+```bash
+awk 'END { print "The file contains", NR, "lines"}' file.txt
+```
+
+Вывод кол-ва строк в файле:
+```bash
+awk 'END { print "The file contains", NR, "lines"}' file.txt
+```
+
+Замена слова в первой позиции с последующим выводом:
+```bash
+echo "Moscow is the capital of GB" | awk '{$1="London"; print $0}'
+```
+
+Структурирование строк на блоки в зависимости от кол-ва знаков и вывод необходимых блоков в заданном порядке:
+```bash
+cat file.txt
+redhat ubuntu centos debian fedora kali
+awk 'BEGIN {FIELDWIDTHS="6 1 6 1 6 1 6 1 6 1 4"} {print $7, $3, $11}' file.txt
+debian ubuntu kali
+```
+
+Берет из файла /etc/passwd только 1 и 3 поле, после чего выводит пользователей, чей ID > 99:
+```bash
+cut -d: -f1,3 /etc/passwd | awk -F: '$2 > 99 {print $1}'
+```
+
+Вывод только первого столбца из файла:
+```bash
+gawk -F: '{ print $1 }' /etc/passwd
+```
+
 
 ## Пакетный менеджер APT
 Обновления кэша с информацией о пакетах:
