@@ -84,6 +84,11 @@ tail -f -s 5 /var/log/syslog      # интерактивный режим с ч�
 tail -f --retry /var/log/syslog | grep error  # интерактивный режим с повтором открытия и фильтрацией по ошибкам
 ``` 
 
+Вывод 5 самых больших по размеру  папок в текущей директории в порядке уменьшения размера:
+```
+sudo du -ahx . | sort -rh | head -5
+```
+
 Сравнение содержимого двух файлов:
 ```bash
 diff file1 file2
@@ -118,6 +123,21 @@ echo -e "\033[40m - чёрный фон;\n\033[41m - красный фон;\n\03
 Цвет текста в консоли, выводимой командой ECHO:
 ```bash
 echo -e "\033[41m\033[30m - чёрный текст;\033[0m\n\033[0m\033[31m - красный текст;\n\033[32m - зелёный текст;\n\033[33m - желтый текст;\n\033[34m - синий текст;\n\033[35m - фиолетовый текст;\n\033[36m - голубой текст;\n\033[37m - серый текст\n"
+```
+
+
+## SYSTEMD / Systemctl
+```
+systemctl --type=service
+systemctl list-units --type=service
+systemctl --type=service --state=active
+systemctl list-units --type=service --state=active
+systemctl --type=service --state=running
+systemctl list-units --type=service --state=running 
+systemctl start service
+systemctl stop service
+systemctl status service
+systemctl restart service
 ```
 
 
@@ -271,6 +291,58 @@ cut -d: -f1,3 /etc/passwd | awk -F: '$2 > 99 {print $1}'
 gawk -F: '{ print $1 }' /etc/passwd
 ```
 
+## CURL
+Проверка заголовков и кода ответа:
+curl -I -k https://yandex.ru  
+*\* ключ -k игнорирует сертификат https*
+
+Проверка только кода ответа:
+curl -I -k https://yandex.ru 2>/dev/null | head -n 1 | cut -d$' ' -f2
+
+Проверка ответа почтового SMTP
+curl -v smtp.yandex.ru:25
+
+## TCPDUMP
+Снять весь трафик с интерфейса eth0:
+```
+tcpdump –i eth0
+```
+
+Снять трафик на интерфейсе eth0, на порту 22:
+```
+sudo tcpdump -i eth0 port 22
+```
+
+Снять трафик на интерфейсе eth0, по протоколу tcp на порту 22:
+```
+sudo tcpdump -i eth0 tcp port 22
+```
+
+Снять трафик с диапазона портов на интерфейсе eth0:
+```
+sudo tcpdump -i eth0 portrange 100-200
+```
+
+Снять трафик на интерфейсе eth0, идущий от хоста 192.168.10.2:
+```
+sudo tcpdump -i ens3 host 192.168.10.2
+```
+
+Снять весь трафик, идущий к 192.168.10.1, который не является ICMP:
+```
+sudo tcpdump dst 192.168.10.1 and not icmp
+```
+
+Запись вывода в файл:
+```
+sudo tcpdump -w sshtrace.tcpdump port 22
+```
+
+Ловим весь входящий трафик, исключая трафик генерируемый нашей SSH-сессией:
+```
+sudo tcpdump -i eth0 -n -nn -ttt 'dst host 192.168.10.1 and not ( src host 192.168.10.2 and dst port 22 )'
+```
+
 
 ## Пакетный менеджер APT
 
@@ -348,6 +420,35 @@ sudo apt install certbot python3-certbot-nginx
 Создание WildCard сертификата с проверкой через TXT запись на сервере DNS:
 ```bash
 certbot certonly -d *.example.com --manual --preferred-challenges dns
+```
+
+## IPTABLES / UFW
+Установка и настройка брандмауэра с использованием UFW:
+```
+sudo apt install ufw
+ufw enable
+ufw disable
+sudo ufw reset
+sudo ufw status verbose
+sudo ufw status numbered
+sudo ufw delete 2
+sudo ufw delete allow http
+sudo ufw allow 6000:6007/tcp
+sudo ufw allow 6000:6007/udp
+sudo ufw allow from 203.0.113.4
+sudo ufw allow from 203.0.113.0/24
+sudo ufw allow from 203.0.113.4 to any port 22
+sudo ufw allow from 203.0.113.0/24 to any port 22
+sudo ufw allow in on eth0 to any port 80
+sudo ufw deny http
+sudo ufw deny from 203.0.113.4
+```
+
+Команды iptables
+```
+iptables -A INPUT -p tcp -d 10.10.0.1  --dport 22 -j ACCEPT
+iptables --line-numbers -L -v -n | grep :22
+iptables -D INPUT 5
 ```
 
 
