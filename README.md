@@ -293,14 +293,20 @@ gawk -F: '{ print $1 }' /etc/passwd
 
 ## CURL
 Проверка заголовков и кода ответа:
-curl -I -k https://yandex.ru  
-*\* ключ -k игнорирует сертификат https*
+```
+curl -I -k https://yandex.ru     # ключ -k игнорирует сертификат https
+```
 
 Проверка только кода ответа:
+```
 curl -I -k https://yandex.ru 2>/dev/null | head -n 1 | cut -d$' ' -f2
+```
 
 Проверка ответа почтового SMTP
+```
 curl -v smtp.yandex.ru:25
+```
+
 
 ## TCPDUMP
 Снять весь трафик с интерфейса eth0:
